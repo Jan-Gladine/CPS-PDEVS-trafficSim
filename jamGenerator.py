@@ -5,6 +5,7 @@ import trafficInterface
 from car import Car
 from trafficInterface import JAMMED_OUTPUT, FULL_JAM, JAMMED, FLUID, FULL_JAM_OUTPUT, JAMMED_TO_FULL_JAM
 
+
 class JamGeneratorModel(AtomicDEVS):
     def __init__(self,name,start, stop):
         AtomicDEVS.__init__(self,name)

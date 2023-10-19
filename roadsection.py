@@ -115,7 +115,6 @@ class RoadSectionState:
         else:
             print("error in external_spot_available as can only happen in JAMMED and FULL_JAM")
 
-
     def output_car(self):
         if self.state is JAMMED_OUTPUT or self.state is FULL_JAM_OUTPUT:
             self.jam_queue[0].distance_done += self.length
@@ -168,6 +167,7 @@ class RoadSectionState:
         for car in self.queue:
             car.current_position_on_segment = car.current_position_on_segment + trafficInterface.calculate_distance_from_time_speed(self.max_speed, elapsed)
 
+
 class RoadSectionModel(AtomicDEVS):
     """Class docstrings go here."""
 
@@ -211,7 +211,7 @@ class RoadSectionModel(AtomicDEVS):
     def outputFnc(self):
         control = self.state.output_control()
         car = self.state.output_car()
-        rv= {}
+        rv = {}
         if car is not None:
             rv[self.OUT_CAR] = car
         if control is not None:

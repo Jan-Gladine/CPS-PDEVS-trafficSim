@@ -15,10 +15,13 @@ class TrafficLightState:
     def internal(self):
         if self.color == RED:
             self.color = GREEN
+            return
         if self.color == GREEN:
             self.color = ORANGE
+            return
         if self.color == ORANGE:
             self.color = RED
+            return
 
     def output_control(self):
         if self.color == GREEN:

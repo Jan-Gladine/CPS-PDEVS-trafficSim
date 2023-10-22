@@ -6,4 +6,4 @@ class Car(object):
         self.distance_done = 0
 
     def __str__(self):
-        return ("pos: " + str(self.current_position_on_segment) + " ct = " + str(self.creation_time) + " distance= "+ str(self.distance_done))
+        return "pos: " + str(self.current_position_on_segment) + " ct = " + str(self.creation_time) + " distance= " + str(self.distance_done)

@@ -145,6 +145,7 @@ class RoadSectionState:
         Logic when car enters
         """
         car.current_velocity = self.max_speed
+        car.current_position_on_segment = 0
         self.update_car_positions(elapsed)
         if self.state is FULL_JAM:
             self.jam_queue.append(car)
@@ -195,7 +196,7 @@ class RoadSectionModel(AtomicDEVS):
         if self.IN_NEXT_JAM in inputs:
             jam_control = inputs[self.IN_NEXT_JAM]
         if car is not None:
-            self.state.car_enters(self.elapsed,car)
+            self.state.car_enters(self.elapsed, car)
         if jam_control is not None:
             if jam_control is trafficInterface.JAM_CAR_SPOT_AVAILABLE:
                 self.state.external_spot_available(self.elapsed)

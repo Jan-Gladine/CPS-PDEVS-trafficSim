@@ -10,7 +10,7 @@ class RoadSectionState:
 
     Defines a basic single lane state
     """
-    def __init__(self, length, max_speed, name):
+    def __init__(self, length, max_speed, initial_state, name):
         """
         Constructor for a road section
         :param length: The length of the road-section in meters
@@ -19,7 +19,7 @@ class RoadSectionState:
         """
         self.length = length
         self.max_speed = max_speed
-        self.state = FLUID
+        self.state = initial_state
         self.queue = []
         self.jam_queue = []
         self.next_transition = INFINITY

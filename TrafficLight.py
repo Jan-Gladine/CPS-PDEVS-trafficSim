@@ -6,15 +6,15 @@ from trafficInterface import RED, GREEN, ORANGE, TO_JAM, TO_FLUID, ROAD_UP, ROAD
 
 class TrafficLightState:
 
-    def __init__(self, color_hor, name, red_time, green_time, orange_time):
+    def __init__(self, color_hor, name, green_time_hor, green_time_vert, orange_time):
         self.name = name
         self.color_hor = color_hor
         if color_hor == RED:
             self.color_vert = GREEN
         else:
             self.color_vert = RED
-        self.redTime = red_time
-        self.greenTime = green_time
+        self.greenTime_hor = green_time_hor
+        self.greenTime_vert = green_time_vert
         self.orangeTime = orange_time
         self.passing_car = 0
         self.car = None
@@ -69,8 +69,10 @@ class TrafficLightState:
         rv = None
         if self.passing_car == 1:
             return 0
-        if (self.color_hor == GREEN) | (self.color_vert == GREEN):
-            rv = self.greenTime - self.elapsed
+        if self.color_hor == GREEN:
+            rv = self.greenTime_hor - self.elapsed
+        if self.color_vert == GREEN:
+            rv = self.greenTime_vert - self.elapsed
         if (self.color_hor == ORANGE) | (self.color_vert == ORANGE):
             rv = self.orangeTime - self.elapsed
         return rv

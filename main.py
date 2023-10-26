@@ -1,4 +1,4 @@
-from random import random
+import random
 
 from pypdevs.DEVS import *
 from pypdevs.infinity import INFINITY

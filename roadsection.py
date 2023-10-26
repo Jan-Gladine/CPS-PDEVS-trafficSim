@@ -90,6 +90,8 @@ class RoadSectionState:
             self.next_transition = 0
         elif self.state is FULL_JAM:
             self.next_transition = INFINITY
+        if self.next_transition < 0:
+            print("negative next time")
         return self.next_transition
 
     def external_to_jam(self, elapsed):
@@ -145,7 +147,6 @@ class RoadSectionState:
         Logic when car enters
         """
         car.current_velocity = self.max_speed
-        car.current_position_on_segment = 0
         self.update_car_positions(elapsed)
         if self.state is FULL_JAM:
             self.jam_queue.append(car)
@@ -157,8 +158,14 @@ class RoadSectionState:
                 self.queue = []
                 self.state = JAMMED_TO_FULL_JAM
             else:
+                if len(self.queue) > 0:
+                    if self.queue[-1].current_position_on_segment <= 5:
+                        car.current_position_on_segment = self.queue[-1].current_position_on_segment - 5
                 self.queue.append(car)
         else:
+            if len(self.queue) > 0:
+                if self.queue[-1].current_position_on_segment <= 5:
+                    car.current_position_on_segment = self.queue[-1].current_position_on_segment - 5
             self.queue.append(car)
 
     def update_car_positions(self,elapsed):

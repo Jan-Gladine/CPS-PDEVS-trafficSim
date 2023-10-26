@@ -17,6 +17,11 @@ def initial_generator():
     return initial_population
 
 
+def generate_individual():
+    values = [random.randint(var[0], var[1]) for var in decision_variables]
+    return values
+
+
 def objective_function(light_times):
     traffic = TrafficSystem(light_times)
     sim = Simulator(traffic)

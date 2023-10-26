@@ -12,43 +12,67 @@ class TrafficSystem(CoupledDEVS):
     def __init__(self, light_times):
         CoupledDEVS.__init__(self, "system")
 
-        # creation horizontal road sections
-        self.roadLeft1 = self.addSubModel(
+        # creation central road sections
+        self.road1 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 1"), "road left-right 1"))
 
-        self.roadLeft2 = self.addSubModel(
+        self.road2 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 1"), "road right-left 1"))
 
-        self.roadRight1 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID,  "road left-right 2"), "road left-right 2"))
+        self.road3 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED,  "road left-right 2"), "road left-right 2"))
 
-        self.roadRight2 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 2"), "road right-left 2"))
+        self.road4 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road right-left 2"), "road right-left 2"))
 
-        self.roadLeft1 = self.addSubModel(
+        self.road5 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 1"), "road left-right 1"))
 
-        self.roadLeft2 = self.addSubModel(
+        self.road6 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 1"), "road right-left 1"))
 
-        self.roadRight1 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 2"), "road left-right 2"))
+        self.road7 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road left-right 2"), "road left-right 2"))
 
-        self.roadRight2 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 2"), "road right-left 2"))
+        self.road8 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road right-left 2"), "road right-left 2"))
 
-        # creation vertical road sections
-        self.roadUp1 = self.addSubModel(
+        # creation outer road sections
+        self.road9 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road up-down 2"), "road up-down 2"))
+
+        self.road10 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road down-up 2"), "road down-up 2"))
+
+        self.road11 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road up-down 1"), "road up-down 1"))
+
+        self.road12 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road down-up 1"), "road down-up 1"))
+
+        self.road13 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road up-down 2"), "road up-down 2"))
+
+        self.road14 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road down-up 2"), "road down-up 2"))
+
+        self.road15 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road up-down 1"), "road up-down 1"))
+
+        self.road16 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road down-up 1"), "road down-up 1"))
+
+        self.road17 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road up-down 2"), "road up-down 2"))
 
-        self.roadUp2 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road down-up 2"), "road down-up 2"))
+        self.road18 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road down-up 2"), "road down-up 2"))
 
-        self.roadDown1 = self.addSubModel(
+        self.road19 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road up-down 1"), "road up-down 1"))
 
-        self.roadDown2 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road down-up 1"), "road down-up 1"))
+        self.road20 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road down-up 1"), "road down-up 1"))
 
         self.sink = self.addSubModel(CarSink("sink"))
 
@@ -66,30 +90,98 @@ class TrafficSystem(CoupledDEVS):
             TrafficLightModel(TrafficLightState(GREEN, "light5", light_times[4][0], light_times[4][2], light_times[4][1]), "light2"))
 
         # generator ports
-        # self.connectPorts(self.gen.car_out, self.roadLeft1.IN_CAR)
-        # self.connectPorts(self.gen.car_out, self.roadRight2.IN_CAR)
-        # self.connectPorts(self.gen.car_out, self.roadUp1.IN_CAR)
-        self.connectPorts(self.gen.car_out, self.roadDown2.IN_CAR)
+        self.connectPorts(self.gen.car_out, self.road17.IN_CAR)
+        self.connectPorts(self.gen.car_out, self.road18.IN_CAR)
+        self.connectPorts(self.gen.car_out, self.road19.IN_CAR)
+        self.connectPorts(self.gen.car_out, self.road20.IN_CAR)
 
-        # road connection ports
-        self.connectPorts(self.roadLeft1.OUT_CAR, self.traffic_light1.IN_CAR)
-        self.connectPorts(self.roadRight2.OUT_CAR, self.traffic_light1.IN_CAR)
-        self.connectPorts(self.roadUp1.OUT_CAR, self.traffic_light1.IN_CAR)
-        self.connectPorts(self.roadDown2.OUT_CAR, self.traffic_light1.IN_CAR)
+        # road connection ports light 1
+        self.connectPorts(self.road2.OUT_CAR, self.traffic_light1.IN_CAR)
+        self.connectPorts(self.road6.OUT_CAR, self.traffic_light1.IN_CAR)
+        self.connectPorts(self.road4.OUT_CAR, self.traffic_light1.IN_CAR)
+        self.connectPorts(self.road8.OUT_CAR, self.traffic_light1.IN_CAR)
 
-        self.connectPorts(self.traffic_light1.OUT_CAR_RIGHT, self.roadRight1.IN_CAR)
-        self.connectPorts(self.traffic_light1.OUT_CAR_LEFT, self.roadLeft2.IN_CAR)
-        self.connectPorts(self.traffic_light1.OUT_CAR_DOWN, self.roadDown1.IN_CAR)
-        self.connectPorts(self.traffic_light1.OUT_CAR_UP, self.roadUp2.IN_CAR)
+        self.connectPorts(self.traffic_light1.OUT_CAR_RIGHT, self.road5.IN_CAR)
+        self.connectPorts(self.traffic_light1.OUT_CAR_LEFT, self.road1.IN_CAR)
+        self.connectPorts(self.traffic_light1.OUT_CAR_DOWN, self.road3.IN_CAR)
+        self.connectPorts(self.traffic_light1.OUT_CAR_UP, self.road7.IN_CAR)
 
-        # traffic light ports
-        self.connectPorts(self.traffic_light1.OUT_JAM_HOR, self.roadLeft1.IN_NEXT_JAM)
-        self.connectPorts(self.traffic_light1.OUT_JAM_HOR, self.roadRight2.IN_NEXT_JAM)
-        self.connectPorts(self.traffic_light1.OUT_JAM_VERT, self.roadUp1.IN_NEXT_JAM)
-        self.connectPorts(self.traffic_light1.OUT_JAM_VERT, self.roadDown2.IN_NEXT_JAM)
+        # road connection ports light 2
+        self.connectPorts(self.road7.OUT_CAR, self.traffic_light2.IN_CAR)
+        self.connectPorts(self.road10.OUT_CAR, self.traffic_light2.IN_CAR)
+        self.connectPorts(self.road15.OUT_CAR, self.traffic_light2.IN_CAR)
+        self.connectPorts(self.road17.OUT_CAR, self.traffic_light2.IN_CAR)
+
+        self.connectPorts(self.traffic_light2.OUT_CAR_RIGHT, self.road16.IN_CAR)
+        self.connectPorts(self.traffic_light2.OUT_CAR_LEFT, self.road9.IN_CAR)
+        self.connectPorts(self.traffic_light2.OUT_CAR_DOWN, self.road8.IN_CAR)
+        self.connectPorts(self.traffic_light2.OUT_CAR_UP, self.sink.IN_CAR)
+
+        # road connection ports light 3
+        self.connectPorts(self.road5.OUT_CAR, self.traffic_light3.IN_CAR)
+        self.connectPorts(self.road14.OUT_CAR, self.traffic_light3.IN_CAR)
+        self.connectPorts(self.road16.OUT_CAR, self.traffic_light3.IN_CAR)
+        self.connectPorts(self.road18.OUT_CAR, self.traffic_light3.IN_CAR)
+
+        self.connectPorts(self.traffic_light3.OUT_CAR_UP, self.road15.IN_CAR)
+        self.connectPorts(self.traffic_light3.OUT_CAR_LEFT, self.road6.IN_CAR)
+        self.connectPorts(self.traffic_light3.OUT_CAR_DOWN, self.road13.IN_CAR)
+        self.connectPorts(self.traffic_light3.OUT_CAR_RIGHT, self.sink.IN_CAR)
+
+        # road connection ports light 4
+        self.connectPorts(self.road12.OUT_CAR, self.traffic_light4.IN_CAR)
+        self.connectPorts(self.road3.OUT_CAR, self.traffic_light4.IN_CAR)
+        self.connectPorts(self.road13.OUT_CAR, self.traffic_light4.IN_CAR)
+        self.connectPorts(self.road19.OUT_CAR, self.traffic_light4.IN_CAR)
+
+        self.connectPorts(self.traffic_light4.OUT_CAR_UP, self.road4.IN_CAR)
+        self.connectPorts(self.traffic_light4.OUT_CAR_LEFT, self.road11.IN_CAR)
+        self.connectPorts(self.traffic_light4.OUT_CAR_RIGHT, self.road14.IN_CAR)
+        self.connectPorts(self.traffic_light4.OUT_CAR_DOWN, self.sink.IN_CAR)
+
+        # road connection ports light 5
+        self.connectPorts(self.road11.OUT_CAR, self.traffic_light5.IN_CAR)
+        self.connectPorts(self.road1.OUT_CAR, self.traffic_light5.IN_CAR)
+        self.connectPorts(self.road9.OUT_CAR, self.traffic_light5.IN_CAR)
+        self.connectPorts(self.road20.OUT_CAR, self.traffic_light5.IN_CAR)
+
+        self.connectPorts(self.traffic_light5.OUT_CAR_UP, self.road10.IN_CAR)
+        self.connectPorts(self.traffic_light5.OUT_CAR_RIGHT, self.road2.IN_CAR)
+        self.connectPorts(self.traffic_light5.OUT_CAR_DOWN, self.road12.IN_CAR)
+        self.connectPorts(self.traffic_light5.OUT_CAR_LEFT, self.sink.IN_CAR)
+
+        # traffic light 1 ports
+        self.connectPorts(self.traffic_light1.OUT_JAM_HOR, self.road2.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light1.OUT_JAM_HOR, self.road6.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light1.OUT_JAM_VERT, self.road8.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light1.OUT_JAM_VERT, self.road4.IN_NEXT_JAM)
+
+        # traffic light 2 ports
+        self.connectPorts(self.traffic_light2.OUT_JAM_HOR, self.road10.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light2.OUT_JAM_HOR, self.road15.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light2.OUT_JAM_VERT, self.road7.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light2.OUT_JAM_VERT, self.road17.IN_NEXT_JAM)
+
+        # traffic light 3 ports
+        self.connectPorts(self.traffic_light3.OUT_JAM_HOR, self.road5.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light3.OUT_JAM_HOR, self.road18.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light3.OUT_JAM_VERT, self.road16.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light3.OUT_JAM_VERT, self.road14.IN_NEXT_JAM)
+
+        # traffic light 4 ports
+        self.connectPorts(self.traffic_light4.OUT_JAM_HOR, self.road12.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light4.OUT_JAM_HOR, self.road13.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light4.OUT_JAM_VERT, self.road19.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light4.OUT_JAM_VERT, self.road3.IN_NEXT_JAM)
+
+        # traffic light 5 ports
+        self.connectPorts(self.traffic_light5.OUT_JAM_HOR, self.road1.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light5.OUT_JAM_HOR, self.road20.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light5.OUT_JAM_VERT, self.road9.IN_NEXT_JAM)
+        self.connectPorts(self.traffic_light5.OUT_JAM_VERT, self.road11.IN_NEXT_JAM)
 
     def select(self, imm):
-        if self.roadLeft1 in imm:
-            return self.roadLeft1
+        if self.road1 in imm:
+            return self.road1
         else:
             return imm[0]

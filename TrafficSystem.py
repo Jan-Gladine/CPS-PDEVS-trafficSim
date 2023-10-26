@@ -1,5 +1,6 @@
 from pypdevs.DEVS import *
 
+from Carsink import CarSink
 from carGenerator import CarGeneratorModel
 from roadsection import *
 from TrafficLight import *
@@ -8,7 +9,7 @@ from jamGenerator import JamGeneratorModel
 
 
 class TrafficSystem(CoupledDEVS):
-    def __init__(self):
+    def __init__(self, light_times):
         CoupledDEVS.__init__(self, "system")
 
         # creation horizontal road sections
@@ -20,6 +21,18 @@ class TrafficSystem(CoupledDEVS):
 
         self.roadRight1 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, FLUID,  "road left-right 2"), "road left-right 2"))
+
+        self.roadRight2 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 2"), "road right-left 2"))
+
+        self.roadLeft1 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 1"), "road left-right 1"))
+
+        self.roadLeft2 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 1"), "road right-left 1"))
+
+        self.roadRight1 = self.addSubModel(
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 2"), "road left-right 2"))
 
         self.roadRight2 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 2"), "road right-left 2"))
@@ -37,17 +50,20 @@ class TrafficSystem(CoupledDEVS):
         self.roadDown2 = self.addSubModel(
             RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road down-up 1"), "road down-up 1"))
 
+        self.sink = self.addSubModel(CarSink("sink"))
+
+        # car generator + traffic light creation
         self.gen = self.addSubModel(CarGeneratorModel("gen", 20))
         self.traffic_light1 = self.addSubModel(
-            TrafficLightModel(TrafficLightState(GREEN, "light1", 70, 60, 10), "light1"))
+            TrafficLightModel(TrafficLightState(GREEN, "light1", light_times[0][0], light_times[0][2], light_times[0][1]), "light1"))
         self.traffic_light2 = self.addSubModel(
-            TrafficLightModel(TrafficLightState(GREEN, "light2", 70, 60, 10), "light2"))
+            TrafficLightModel(TrafficLightState(GREEN, "light2", light_times[1][0], light_times[1][2], light_times[1][1]), "light2"))
         self.traffic_light3 = self.addSubModel(
-            TrafficLightModel(TrafficLightState(GREEN, "light3", 70, 60, 10), "light1"))
+            TrafficLightModel(TrafficLightState(GREEN, "light3", light_times[2][0], light_times[2][2], light_times[2][1]), "light1"))
         self.traffic_light4 = self.addSubModel(
-            TrafficLightModel(TrafficLightState(GREEN, "light4", 70, 60, 10), "light2"))
+            TrafficLightModel(TrafficLightState(GREEN, "light4", light_times[3][0], light_times[3][2], light_times[3][1]), "light2"))
         self.traffic_light5 = self.addSubModel(
-            TrafficLightModel(TrafficLightState(GREEN, "light5", 70, 60, 10), "light2"))
+            TrafficLightModel(TrafficLightState(GREEN, "light5", light_times[4][0], light_times[4][2], light_times[4][1]), "light2"))
 
         # generator ports
         # self.connectPorts(self.gen.car_out, self.roadLeft1.IN_CAR)

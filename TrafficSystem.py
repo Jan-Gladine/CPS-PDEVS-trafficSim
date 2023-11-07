@@ -91,9 +91,9 @@ class TrafficSystem(CoupledDEVS):
 
         # generator ports
         self.connectPorts(self.gen.car_out, self.road17.IN_CAR)
-        self.connectPorts(self.gen.car_out, self.road18.IN_CAR)
-        self.connectPorts(self.gen.car_out, self.road19.IN_CAR)
-        self.connectPorts(self.gen.car_out, self.road20.IN_CAR)
+        #self.connectPorts(self.gen.car_out, self.road18.IN_CAR)
+        #self.connectPorts(self.gen.car_out, self.road19.IN_CAR)
+        #self.connectPorts(self.gen.car_out, self.road20.IN_CAR)
 
         # road connection ports light 1
         self.connectPorts(self.road2.OUT_CAR, self.traffic_light1.IN_CAR)

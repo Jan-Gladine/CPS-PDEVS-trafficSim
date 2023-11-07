@@ -28,9 +28,18 @@ def objective_function(light_times):
     sim.setTerminationTime(1000)
     sim.setClassicDEVS()
     sim.simulate()
-    return traffic.sink.get_statistics()
+    return (traffic.sink.get_statistics(),)
 
 
 def generate_random_population(n):
     return [initial_generator() for _ in range(n)]
 
+
+def mutate_individual(individual):
+    # Iterate through the sublists of the individual
+    for i in range(len(individual)):
+        # Choose a random index within the sublist
+        index_to_mutate = random.randint(0, len(individual[i]) - 1)
+        # Mutate the element at the chosen index
+        individual[i][index_to_mutate] = random.randint(decision_variables[index_to_mutate][0], decision_variables[index_to_mutate][1])  # You can adjust the mutation range as needed
+    return (individual,)

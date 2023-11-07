@@ -83,6 +83,8 @@ class RoadSectionState:
         if self.state is FLUID or self.state is JAMMED:
             if len(self.queue) > 0:
                 distance_to_cover = self.length - self.calculate_jam_length() - self.queue[0].current_position_on_segment
+                if distance_to_cover < 0 > -1e-5:
+                    distance_to_cover = 0
                 self.next_transition = trafficInterface.calculate_time_from_distance_speed(self.max_speed, distance_to_cover)
             else:
                 self.next_transition = INFINITY
@@ -147,6 +149,7 @@ class RoadSectionState:
         Logic when car enters
         """
         car.current_velocity = self.max_speed
+        car.current_position_on_segment = 0
         self.update_car_positions(elapsed)
         if self.state is FULL_JAM:
             self.jam_queue.append(car)

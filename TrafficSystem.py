@@ -14,65 +14,65 @@ class TrafficSystem(CoupledDEVS):
 
         # creation central road sections
         self.road1 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 1"), "road left-right 1"))
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road1"), "road left-right 1"))
 
         self.road2 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 1"), "road right-left 1"))
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road2"), "road right-left 1"))
 
         self.road3 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED,  "road left-right 2"), "road left-right 2"))
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED,  "road3"), "road left-right 2"))
 
         self.road4 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road right-left 2"), "road right-left 2"))
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road4"), "road right-left 2"))
 
         self.road5 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road left-right 1"), "road left-right 1"))
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road5"), "road left-right 1"))
 
         self.road6 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road right-left 1"), "road right-left 1"))
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road6"), "road right-left 1"))
 
         self.road7 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road left-right 2"), "road left-right 2"))
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road7"), "road left-right 2"))
 
         self.road8 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road right-left 2"), "road right-left 2"))
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road8"), "road right-left 2"))
 
         # creation outer road sections
         self.road9 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road up-down 2"), "road up-down 2"))
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road9"), "road up-down 2"))
 
         self.road10 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road down-up 2"), "road down-up 2"))
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road10"), "road down-up 2"))
 
         self.road11 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road up-down 1"), "road up-down 1"))
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road11"), "road up-down 1"))
 
         self.road12 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road down-up 1"), "road down-up 1"))
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road12"), "road down-up 1"))
 
         self.road13 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road up-down 2"), "road up-down 2"))
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road13"), "road up-down 2"))
 
         self.road14 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road down-up 2"), "road down-up 2"))
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road14"), "road down-up 2"))
 
         self.road15 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road up-down 1"), "road up-down 1"))
+            RoadSectionModel(RoadSectionState(2000, 70, FLUID, "road15"), "road up-down 1"))
 
         self.road16 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road down-up 1"), "road down-up 1"))
+            RoadSectionModel(RoadSectionState(2000, 70, JAMMED, "road16"), "road down-up 1"))
 
         self.road17 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road up-down 2"), "road up-down 2"))
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road17"), "road up-down 2"))
 
         self.road18 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road down-up 2"), "road down-up 2"))
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road18"), "road down-up 2"))
 
         self.road19 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road up-down 1"), "road up-down 1"))
+            RoadSectionModel(RoadSectionState(1000, 70, JAMMED, "road19"), "road up-down 1"))
 
         self.road20 = self.addSubModel(
-            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road down-up 1"), "road down-up 1"))
+            RoadSectionModel(RoadSectionState(1000, 70, FLUID, "road20"), "road down-up 1"))
 
         self.sink = self.addSubModel(CarSink("sink"))
 
